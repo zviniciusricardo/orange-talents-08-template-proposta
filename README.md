@@ -3,25 +3,25 @@
 ### Orange Talents - Turma 8
 
 
--[x] 005.criacao_proposta
--[ ] 010.nao_pode_haver_proposta
--[ ] 015.consultando_dados_solicitante
--[ ] 020.melhorando_visibilidade_healthcheck
--[ ] 030.associar_cartao_proposta
--[ ] 035.acompanhamento_proposta
--[ ] 040.rodar_nossa_aplicacao
--[ ] 045.criar_biometria
--[ ] 050.login_via_senha
--[ ] 055.bloqueio_cartao
--[ ] 060.notificando_legado_cartao
--[ ] 065.como_saber_tudo_funcionando_corretamente
--[ ] 075.aviso_viagem
--[ ] 080.notificando_sistema_bancario_viagem
--[ ] 085.associacao_paypal
--[ ] 090.associacao_samsung_pay
--[ ] 095.falhar_nas_chamadas
--[ ] 100.rodando_prometheus
--[ ] 105.dados_dos_clientes
+- [x] 005.criacao_proposta
+- [ ] 010.nao_pode_haver_proposta
+- [ ] 015.consultando_dados_solicitante
+- [ ] 020.melhorando_visibilidade_healthcheck
+- [ ] 030.associar_cartao_proposta
+- [ ] 035.acompanhamento_proposta
+- [ ] 040.rodar_nossa_aplicacao
+- [ ] 045.criar_biometria
+- [ ] 050.login_via_senha
+- [ ] 055.bloqueio_cartao
+- [ ] 060.notificando_legado_cartao
+- [ ] 065.como_saber_tudo_funcionando_corretamente
+- [ ] 075.aviso_viagem
+- [ ] 080.notificando_sistema_bancario_viagem
+- [ ] 085.associacao_paypal
+- [ ] 090.associacao_samsung_pay
+- [ ] 095.falhar_nas_chamadas
+- [ ] 100.rodando_prometheus
+- [ ] 105.dados_dos_clientes
 
 
 ### 005 - Criação Proposta (Caminho cognitivo)
