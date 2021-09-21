@@ -1,4 +1,4 @@
-package br.com.zupacademy.vinicius.proposalmicroservice.validator;
+package br.com.zupacademy.vinicius.proposalmicroservice.validation;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;

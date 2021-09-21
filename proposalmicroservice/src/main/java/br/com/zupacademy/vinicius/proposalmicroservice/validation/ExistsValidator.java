@@ -1,4 +1,4 @@
-package br.com.zupacademy.vinicius.proposalmicroservice.validator;
+package br.com.zupacademy.vinicius.proposalmicroservice.validation;
 
 import org.springframework.util.ObjectUtils;
 

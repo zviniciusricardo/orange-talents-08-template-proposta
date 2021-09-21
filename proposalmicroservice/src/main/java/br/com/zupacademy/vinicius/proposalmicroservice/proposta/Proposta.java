@@ -1,16 +1,16 @@
-package br.com.zupacademy.vinicius.proposalmicroservice.solicitante;
+package br.com.zupacademy.vinicius.proposalmicroservice.proposta;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Entity
-public class Solicitante {
+public class Proposta {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    @Column(unique = true, updatable = false, nullable = false)
+    @Column(unique = true, nullable = false)
     private String documento;
     
     @Column(unique = true, nullable = false)
@@ -25,7 +25,7 @@ public class Solicitante {
     @Column(nullable = false)
     private BigDecimal salario;
     
-    public Solicitante(SolicitanteForm form) {
+    public Proposta(PropostaForm form) {
         this.documento = form.getDocumento();
         this.email = form.getEmail();
         this.nome = form.getNome();
@@ -34,7 +34,7 @@ public class Solicitante {
     }
     
     @Deprecated
-    public Solicitante() {
+    public Proposta() {
     }
     
     public Long getId() {

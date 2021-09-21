@@ -1,21 +1,24 @@
-package br.com.zupacademy.vinicius.proposalmicroservice.solicitante;
+package br.com.zupacademy.vinicius.proposalmicroservice.proposta;
 
-import br.com.zupacademy.vinicius.proposalmicroservice.validator.CPForCNPJ;
-import br.com.zupacademy.vinicius.proposalmicroservice.validator.UniqueValue;
+import br.com.zupacademy.vinicius.proposalmicroservice.exception.RegraNegocioException;
+import br.com.zupacademy.vinicius.proposalmicroservice.validation.CPForCNPJ;
+import br.com.zupacademy.vinicius.proposalmicroservice.validation.UniqueValue;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import java.math.BigDecimal;
+import java.util.Optional;
 
-public class SolicitanteForm {
+public class PropostaForm {
     
-    @NotBlank @CPForCNPJ
-    @UniqueValue(domainClass = Solicitante.class, fieldName = "documento")
-    private String documento;
-
     @NotBlank
-    @UniqueValue(domainClass = Solicitante.class, fieldName = "email")
+    @CPForCNPJ
+    @UniqueValue(domainClass = Proposta.class, fieldName = "documento")
+    private String documento;
+    
+    @NotBlank
+    @UniqueValue(domainClass = Proposta.class, fieldName = "email")
     private String email;
     
     @NotBlank
@@ -24,11 +27,12 @@ public class SolicitanteForm {
     @NotBlank
     private String endereco;
     
-    @NotNull @Positive
+    @NotNull
+    @Positive
     private BigDecimal salario;
     
-    public SolicitanteForm(@NotBlank String documento, @NotBlank String email, @NotBlank String nome,
-                           @NotBlank String endereco, @NotNull @Positive BigDecimal salario) {
+    public PropostaForm(@NotBlank String documento, @NotBlank String email, @NotBlank String nome,
+                        @NotBlank String endereco, @NotNull @Positive BigDecimal salario) {
         this.documento = documento;
         this.email = email;
         this.nome = nome;
@@ -36,8 +40,8 @@ public class SolicitanteForm {
         this.salario = salario;
     }
     
-    public Solicitante toModel() {
-        return new Solicitante(this);
+    public Proposta toModel(PropostaRepository repository) throws RegraNegocioException {
+        return new Proposta(this);
     }
     
     public String getDocumento() {

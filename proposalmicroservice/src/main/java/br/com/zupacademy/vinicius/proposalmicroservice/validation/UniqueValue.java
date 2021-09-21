@@ -1,4 +1,4 @@
-package br.com.zupacademy.vinicius.proposalmicroservice.validator;
+package br.com.zupacademy.vinicius.proposalmicroservice.validation;
 
 
 import javax.validation.Constraint;
@@ -16,7 +16,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Retention(RUNTIME)
 public @interface UniqueValue {
 
-    String message() default "{ br.com.zupacademy.vinicius.mercadolivre.validator }";
+    String message() default "{ br.com.zupacademy.vinicius.proposalmicroservice.validator }";
     Class<?>[] groups() default {};
     Class<? extends Payload>[] payload() default {};
     String fieldName();

@@ -1,4 +1,4 @@
-package br.com.zupacademy.vinicius.proposalmicroservice.validator;
+package br.com.zupacademy.vinicius.proposalmicroservice.validation;
 
 
 import org.hibernate.validator.constraints.CompositionType;
@@ -21,7 +21,7 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface CPForCNPJ {
 
-    String message() default "{ br.com.zupacademy.vinicius.casadocodigo.validator } Apresente um documento válido";
+    String message() default "{ br.com.zupacademy.vinicius.proposalmicroservice.validator } Apresente um documento válido";
 
     Class<?>[] groups() default {};
 
