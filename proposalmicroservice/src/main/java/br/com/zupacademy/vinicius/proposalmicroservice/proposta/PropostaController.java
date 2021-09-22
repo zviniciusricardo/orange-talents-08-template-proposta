@@ -1,7 +1,9 @@
 package br.com.zupacademy.vinicius.proposalmicroservice.proposta;
 
 import br.com.zupacademy.vinicius.proposalmicroservice.exception.RegraNegocioException;
-import org.springframework.beans.factory.annotation.Autowired;
+import br.com.zupacademy.vinicius.proposalmicroservice.proposta.webclient.situacaofinanceira.AnaliseFinanceiraWebClient;
+import br.com.zupacademy.vinicius.proposalmicroservice.util.UriBuilder;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -10,6 +12,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
 import javax.validation.Valid;
+import java.net.URI;
 
 @RestController
 @RequestMapping("/api/propostas")
@@ -18,17 +21,22 @@ public class PropostaController {
     @PersistenceContext
     private EntityManager manager;
     
-    @Autowired
-    private PropostaRepository propostaRepository;
+    private AnaliseFinanceiraWebClient webClient;
+    
+    public PropostaController(AnaliseFinanceiraWebClient webClient) {
+        this.webClient = webClient;
+    }
     
     @Transactional
-    @ResponseBody
     @PostMapping
     @ResponseStatus(HttpStatus.NOT_ACCEPTABLE)
-    public ResponseEntity<?> cadastraSolicitante(
-            @RequestBody @Valid PropostaForm form) throws RegraNegocioException {
-        Proposta proposta = form.toModel(propostaRepository);
+    public ResponseEntity<?> cadastraProposta(@RequestBody @Valid PropostaForm form) throws RegraNegocioException, JsonProcessingException {
+        Proposta proposta = form.toModel();
         manager.persist(proposta);
-        return ResponseEntity.ok().body(new PropostaDto(proposta));
+        proposta.analisaSituacaoFinanceira(webClient);
+        
+        URI redirectPath = UriBuilder.build(proposta.getId());
+        
+        return ResponseEntity.created(redirectPath).body(new PropostaDto(proposta));
     }
 }

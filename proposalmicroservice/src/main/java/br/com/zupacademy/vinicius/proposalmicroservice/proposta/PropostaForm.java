@@ -8,7 +8,6 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import java.math.BigDecimal;
-import java.util.Optional;
 
 public class PropostaForm {
     
@@ -40,7 +39,7 @@ public class PropostaForm {
         this.salario = salario;
     }
     
-    public Proposta toModel(PropostaRepository repository) throws RegraNegocioException {
+    public Proposta toModel() throws RegraNegocioException {
         return new Proposta(this);
     }
     

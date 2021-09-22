@@ -2,26 +2,26 @@ package br.com.zupacademy.vinicius.proposalmicroservice.proposta;
 
 public class PropostaDto {
     
-    public Long id;
-    public String email;
-    public String nome;
+    private String nome;
+    private String statusProposta;
+    private String idProposta;
     
     
     public PropostaDto(Proposta proposta) {
-        this.id = proposta.getId();
-        this.email = proposta.getEmail();
         this.nome = proposta.getNome();
-    }
-    
-    public Long getId() {
-        return id;
-    }
-    
-    public String getEmail() {
-        return email;
+        this.statusProposta = proposta.getStatus().toString();
+        this.idProposta = proposta.getId().toString();
     }
     
     public String getNome() {
         return nome;
+    }
+    
+    public String getStatusProposta() {
+        return statusProposta;
+    }
+    
+    public String getIdProposta() {
+        return idProposta;
     }
 }

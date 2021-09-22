@@ -1,5 +1,12 @@
 package br.com.zupacademy.vinicius.proposalmicroservice.proposta;
 
+import br.com.zupacademy.vinicius.proposalmicroservice.proposta.webclient.situacaofinanceira.AnaliseFinanceiraRequest;
+import br.com.zupacademy.vinicius.proposalmicroservice.proposta.webclient.situacaofinanceira.AnaliseFinanceiraResponse;
+import br.com.zupacademy.vinicius.proposalmicroservice.proposta.webclient.situacaofinanceira.AnaliseFinanceiraWebClient;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import feign.FeignException;
+
 import javax.persistence.*;
 import java.math.BigDecimal;
 
@@ -25,6 +32,9 @@ public class Proposta {
     @Column(nullable = false)
     private BigDecimal salario;
     
+    @Enumerated(EnumType.STRING)
+    private StatusProposta status;
+    
     public Proposta(PropostaForm form) {
         this.documento = form.getDocumento();
         this.email = form.getEmail();
@@ -35,6 +45,28 @@ public class Proposta {
     
     @Deprecated
     public Proposta() {
+    }
+    
+    public void analisaSituacaoFinanceira(AnaliseFinanceiraWebClient webClient) throws JsonProcessingException {
+        AnaliseFinanceiraRequest request = new AnaliseFinanceiraRequest(this);
+        AnaliseFinanceiraResponse response;
+        
+        try {
+            response = webClient.analisaPropostas(request);
+        } catch (FeignException ex) {
+            ObjectMapper mapper = new ObjectMapper();
+            response = mapper.readValue(ex.contentUTF8(), AnaliseFinanceiraResponse.class);
+        }
+        
+        this.setStatusProposta(response.getResultadoSolicitacao());
+    }
+    
+    public void setStatusProposta(StatusProposta status) {
+        this.status = status;
+    }
+    
+    public StatusProposta getStatus() {
+        return status;
     }
     
     public Long getId() {
