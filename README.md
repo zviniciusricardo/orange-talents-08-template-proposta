@@ -65,7 +65,7 @@ Sempre usarei o ResponseEntity como retorno de métodos de controllers.
 ## 015.consultando_dados_solicitante
 
 Adiciono as dependências do OpenFeign ao projeto.
-Crio uma interface anotada com @FeighClient com um método abstrato analizaProposta().
+Crio uma interface anotada com @FeingClient com um método abstrato analizaProposta().
 Esse método recebe uma proposta em formato Dto e devolve uma resposta da análise financeira.
 Crio duas classes baseadas na documentação da OpenAPI via Swagger, a Solicitação da Análise que recebe uma proposta
 via construtor e envia os parãmetros requisitados pelo WebClient. O mesmo WebClient me devolve um Resultado análise.
@@ -184,6 +184,37 @@ to source code, additional documentation, or inspection of network traffic.
 ![Explaining](proposalmicroservice/src/main/resources/static/img_5.png)
 
 
+## 020.melhorando_visibilidade_healthcheck
+
+Primeiramente eu habilitaria e incluiria as dependências de monitoramento do spring-boot-actuator no pom.xml.
+Depois, eu criaria uma classe que implemente a interface HeathIndicator anotada com @Component (bean do spring)
+
+Vamos sobrescrever o método health que vai nos possibilitar capturar dados da aplicação por meio de endpoints providos pelo actuator.
+
+Na nossa máquina local, usamos:
+http://localhost:8080/actuator/health
+
+e podemos observar os dados disponíveis fornecidos pelo actuator e pela nosso componente de health checking;
+Criacao de endpoints que verifiquem a saúde e o estado de serviços internos e externos como
+os endpoints de proposta e também o de análise de propostas.
+Podemos usar o CORS que é uma especificação da W3C para estabelecer quem pode ter acesso aos
+endpoints de health check para aumentar nossa segurança e expor só o necessário para usuários
+autenticados. Podemos também configurar o tipo de informação que querermos.
+O actuator nos dá vários endpoints com vários serviços. Não precisamos de todos por enquanto.
+Provavelmente só os relativos a Readness Check como UP, DOWN, UNKNOW, etc...
+Caso esteja tudo de pé, retornamos 200 ok, caso não, retornaremos algum Server Error 5XX
+
+Caso seja pertinente, também posso instalar uma api de logs json based para auxiliar na exposição dos dados e inclusive no formato da apresentação como diferentes cores para diferentes grupos de logs, um prefixo pré-configurado para cada tipo de log ERR, INFO, SERV, TRACE, etc.
+
+Ao definir os endpoints que serão observados, a estrutura do projeto com segurança, autenticação e acessos estabelecidos, preciso usar uma estratégia para otimizar meus logs a serem uma parte integrante de mais outro fluxo dentro da minha aplicação.
+
+Algumas convenções serão seguidas como:
+
+* Incluir um timestamp em cada log
+* Em formato Json
+* Com mensagens user friendly
+* logs essenciais do que for significativo à minha aplicação
+* E, em caso de logs ou tráfego de dados sensíveis, ofuscar as informações.
 
 
 
