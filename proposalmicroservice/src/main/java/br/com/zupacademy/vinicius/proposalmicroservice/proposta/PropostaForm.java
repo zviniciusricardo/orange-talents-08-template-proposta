@@ -1,6 +1,5 @@
 package br.com.zupacademy.vinicius.proposalmicroservice.proposta;
 
-import br.com.zupacademy.vinicius.proposalmicroservice.exception.RegraNegocioException;
 import br.com.zupacademy.vinicius.proposalmicroservice.validation.CPForCNPJ;
 import br.com.zupacademy.vinicius.proposalmicroservice.validation.UniqueValue;
 
@@ -39,7 +38,7 @@ public class PropostaForm {
         this.salario = salario;
     }
     
-    public Proposta toModel() throws RegraNegocioException {
+    public Proposta toModel() {
         return new Proposta(this);
     }
     

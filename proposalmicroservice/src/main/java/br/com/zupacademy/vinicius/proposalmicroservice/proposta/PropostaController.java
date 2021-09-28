@@ -4,6 +4,7 @@ import br.com.zupacademy.vinicius.proposalmicroservice.exception.RegraNegocioExc
 import br.com.zupacademy.vinicius.proposalmicroservice.proposta.webclient.situacaofinanceira.AnaliseFinanceiraWebClient;
 import br.com.zupacademy.vinicius.proposalmicroservice.util.UriBuilder;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,16 +22,15 @@ public class PropostaController {
     @PersistenceContext
     private EntityManager manager;
     
+    @Autowired
     private AnaliseFinanceiraWebClient webClient;
-    
-    public PropostaController(AnaliseFinanceiraWebClient webClient) {
-        this.webClient = webClient;
-    }
     
     @Transactional
     @PostMapping
     @ResponseStatus(HttpStatus.NOT_ACCEPTABLE)
-    public ResponseEntity<?> cadastraProposta(@RequestBody @Valid PropostaForm form) throws RegraNegocioException, JsonProcessingException {
+    public ResponseEntity<?> cadastraProposta(@RequestBody @Valid PropostaForm form)
+            throws RegraNegocioException, JsonProcessingException {
+        
         Proposta proposta = form.toModel();
         manager.persist(proposta);
         proposta.analisaSituacaoFinanceira(webClient);

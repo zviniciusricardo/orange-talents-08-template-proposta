@@ -12,7 +12,7 @@ import java.math.BigDecimal;
 
 @Entity
 public class Proposta {
-
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -35,6 +35,9 @@ public class Proposta {
     @Enumerated(EnumType.STRING)
     private StatusProposta status;
     
+    @JoinColumn(name = "numero_cartao")
+    private String numeroCartao;
+    
     public Proposta(PropostaForm form) {
         this.documento = form.getDocumento();
         this.email = form.getEmail();
@@ -46,6 +49,7 @@ public class Proposta {
     @Deprecated
     public Proposta() {
     }
+    
     
     public void analisaSituacaoFinanceira(AnaliseFinanceiraWebClient webClient) throws JsonProcessingException {
         AnaliseFinanceiraRequest request = new AnaliseFinanceiraRequest(this);
@@ -59,6 +63,10 @@ public class Proposta {
         }
         
         this.setStatusProposta(response.getResultadoSolicitacao());
+    }
+    
+    public void setNumeroCartao(String numeroCartao) {
+        this.numeroCartao = numeroCartao;
     }
     
     public void setStatusProposta(StatusProposta status) {
@@ -92,4 +100,5 @@ public class Proposta {
     public BigDecimal getSalario() {
         return salario;
     }
+    
 }
