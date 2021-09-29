@@ -4,7 +4,6 @@ import br.com.zupacademy.vinicius.proposalmicroservice.proposta.Proposta;
 import br.com.zupacademy.vinicius.proposalmicroservice.proposta.PropostaRepository;
 import br.com.zupacademy.vinicius.proposalmicroservice.proposta.StatusProposta;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -26,8 +25,7 @@ public class SchedulerCartao_IntegracaoUsuario {
     @Autowired
     private CartaoRepository cartaoRepository;
     
-    @Async
-    @Scheduled(fixedDelay = 10000)
+    @Scheduled(fixedDelay = 1000)
     @Transactional
     private void vinculoCartaoProposta() {
     
