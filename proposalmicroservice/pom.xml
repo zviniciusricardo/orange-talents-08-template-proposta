@@ -14,6 +14,8 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>ProposalMicroservice</name>
 	<description>Microsserviço de Propostas com docker, keycloack e métricas - Orange Talents _Zup Innovation IT</description>
+	<packaging>jar</packaging>
+
 
 	<properties>
 		<java.version>11</java.version>
