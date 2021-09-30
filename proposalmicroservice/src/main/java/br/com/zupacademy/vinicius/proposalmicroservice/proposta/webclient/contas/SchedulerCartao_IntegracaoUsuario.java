@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -25,29 +24,28 @@ public class SchedulerCartao_IntegracaoUsuario {
     @Autowired
     private CartaoRepository cartaoRepository;
     
-    @Scheduled(fixedDelay = 1000)
-    @Transactional
+    @Scheduled(fixedDelay = 5000)
     private void vinculoCartaoProposta() {
     
-        Set<Optional<Proposta>> propostasElegiveisSemCartaoVinculado = propostaRepository
-                .findTop10ByNumeroCartaoIsNullAndStatusEquals(StatusProposta.ELEGIVEL);
+        while(true) {
+            Set<Optional<Proposta>> propostasElegiveisSemCartaoVinculado = propostaRepository
+                    .findTop10ByNumeroCartaoIsNullAndStatusEquals(StatusProposta.ELEGIVEL);
     
-        if (propostasElegiveisSemCartaoVinculado.isEmpty()) return;
+            if (propostasElegiveisSemCartaoVinculado.isEmpty()) return;
     
-        List<Cartao> listaCartoes = propostasElegiveisSemCartaoVinculado.stream()
-                .map(proposta -> new CartaoRequest(proposta.get()))
-                .map(request -> webClient.vinculaCartao(request))
-                .map(response -> new Cartao(response))
-                .map(cartao -> cartaoRepository.save(cartao))
-                .collect(Collectors.toList());
+            List<Cartao> listaCartoes = propostasElegiveisSemCartaoVinculado.stream()
+                    .map(proposta -> new CartaoRequest(proposta.get()))
+                    .map(request -> webClient.vinculaCartao(request))
+                    .map(response -> new Cartao(response))
+                    .map(cartao -> cartaoRepository.save(cartao))
+                    .collect(Collectors.toList());
     
-        for (Optional<Proposta> proposta: propostasElegiveisSemCartaoVinculado) {
-            for (Cartao cartao:listaCartoes) {
-                proposta.get().setNumeroCartao(cartao.getNumeroCartao());
+            for (Optional<Proposta> proposta : propostasElegiveisSemCartaoVinculado) {
+                for (Cartao cartao : listaCartoes) {
+                    proposta.get().setNumeroCartao(cartao.getNumeroCartao());
+                }
+                propostaRepository.save(proposta.get());
             }
-            propostaRepository.save(proposta.get());
         }
-        
-        return;
     }
 }
