@@ -1,8 +1,8 @@
-package br.com.zupacademy.vinicius.proposalmicroservice.proposta.webclient.contas;
+package br.com.zupacademy.vinicius.proposalmicroservice.business.webclient.contas;
 
-import br.com.zupacademy.vinicius.proposalmicroservice.proposta.Proposta;
-import br.com.zupacademy.vinicius.proposalmicroservice.proposta.PropostaRepository;
-import br.com.zupacademy.vinicius.proposalmicroservice.proposta.StatusProposta;
+import br.com.zupacademy.vinicius.proposalmicroservice.business.Proposta;
+import br.com.zupacademy.vinicius.proposalmicroservice.business.PropostaRepository;
+import br.com.zupacademy.vinicius.proposalmicroservice.business.StatusProposta;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;

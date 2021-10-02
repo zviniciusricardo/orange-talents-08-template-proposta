@@ -1,4 +1,4 @@
-package br.com.zupacademy.vinicius.proposalmicroservice.proposta;
+package br.com.zupacademy.vinicius.proposalmicroservice.business;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.scheduling.annotation.Async;

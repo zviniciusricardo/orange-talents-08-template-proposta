@@ -1,4 +1,4 @@
-package br.com.zupacademy.vinicius.proposalmicroservice.proposta;
+package br.com.zupacademy.vinicius.proposalmicroservice.business;
 
 public class PropostaDto {
     

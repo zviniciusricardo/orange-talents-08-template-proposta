@@ -1,4 +1,4 @@
-package br.com.zupacademy.vinicius.proposalmicroservice.proposta;
+package br.com.zupacademy.vinicius.proposalmicroservice.business;
 
 import br.com.zupacademy.vinicius.proposalmicroservice.validation.CPForCNPJ;
 import br.com.zupacademy.vinicius.proposalmicroservice.validation.UniqueValue;

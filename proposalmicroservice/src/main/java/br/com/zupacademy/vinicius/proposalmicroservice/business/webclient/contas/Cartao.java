@@ -1,6 +1,6 @@
-package br.com.zupacademy.vinicius.proposalmicroservice.proposta.webclient.contas;
+package br.com.zupacademy.vinicius.proposalmicroservice.business.webclient.contas;
 
-import br.com.zupacademy.vinicius.proposalmicroservice.proposta.Proposta;
+import br.com.zupacademy.vinicius.proposalmicroservice.business.Proposta;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -12,7 +12,7 @@ import java.util.List;
 public class Cartao {
     
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
     @Column(name = "numero_cartao", nullable = false, unique = true)

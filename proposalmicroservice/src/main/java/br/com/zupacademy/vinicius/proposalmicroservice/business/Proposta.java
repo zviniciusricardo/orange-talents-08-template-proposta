@@ -1,8 +1,8 @@
-package br.com.zupacademy.vinicius.proposalmicroservice.proposta;
+package br.com.zupacademy.vinicius.proposalmicroservice.business;
 
-import br.com.zupacademy.vinicius.proposalmicroservice.proposta.webclient.situacaofinanceira.AnaliseFinanceiraRequest;
-import br.com.zupacademy.vinicius.proposalmicroservice.proposta.webclient.situacaofinanceira.AnaliseFinanceiraResponse;
-import br.com.zupacademy.vinicius.proposalmicroservice.proposta.webclient.situacaofinanceira.AnaliseFinanceiraWebClient;
+import br.com.zupacademy.vinicius.proposalmicroservice.business.webclient.analisefinanceira.AnaliseFinanceiraRequest;
+import br.com.zupacademy.vinicius.proposalmicroservice.business.webclient.analisefinanceira.AnaliseFinanceiraResponse;
+import br.com.zupacademy.vinicius.proposalmicroservice.business.webclient.analisefinanceira.AnaliseFinanceiraWebClient;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import feign.FeignException;

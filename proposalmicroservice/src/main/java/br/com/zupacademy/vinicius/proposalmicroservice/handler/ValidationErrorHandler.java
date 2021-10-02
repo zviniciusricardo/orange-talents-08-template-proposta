@@ -1,5 +1,7 @@
 package br.com.zupacademy.vinicius.proposalmicroservice.handler;
 
+import br.com.zupacademy.vinicius.proposalmicroservice.business.webclient.contas.cartao_biometria.Biometria;
+import br.com.zupacademy.vinicius.proposalmicroservice.business.webclient.contas.cartao_biometria.BiometriaForm;
 import br.com.zupacademy.vinicius.proposalmicroservice.exception.RegraNegocioException;
 import br.com.zupacademy.vinicius.proposalmicroservice.exception.ReturnError;
 import org.springframework.beans.NotReadablePropertyException;
@@ -7,13 +9,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindException;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
+import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import java.util.List;
 
@@ -74,5 +80,15 @@ public class ValidationErrorHandler {
         erros.addError(exception.getLocalizedMessage());
         
         return erros;
+    }
+    
+    @ControllerAdvice
+    public class FileUploadExceptionAdvice extends ResponseEntityExceptionHandler {
+    
+        @ExceptionHandler(MaxUploadSizeExceededException.class)
+        public ResponseEntity<RegraNegocioException> handleMaxSizeException(MaxUploadSizeExceededException exc) {
+            return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).body(
+                    new RegraNegocioException("File too large!", "fingerprint", Biometria.class));
+        }
     }
 }

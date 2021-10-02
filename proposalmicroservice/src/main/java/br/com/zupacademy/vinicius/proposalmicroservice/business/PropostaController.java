@@ -1,13 +1,12 @@
-package br.com.zupacademy.vinicius.proposalmicroservice.proposta;
+package br.com.zupacademy.vinicius.proposalmicroservice.business;
 
+import br.com.zupacademy.vinicius.proposalmicroservice.business.webclient.analisefinanceira.AnaliseFinanceiraWebClient;
 import br.com.zupacademy.vinicius.proposalmicroservice.exception.RegraNegocioException;
-import br.com.zupacademy.vinicius.proposalmicroservice.proposta.webclient.situacaofinanceira.AnaliseFinanceiraWebClient;
 import br.com.zupacademy.vinicius.proposalmicroservice.util.UriBuilder;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
 
 import javax.persistence.EntityManager;

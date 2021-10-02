@@ -1,6 +1,6 @@
-package br.com.zupacademy.vinicius.proposalmicroservice.proposta.webclient.situacaofinanceira;
+package br.com.zupacademy.vinicius.proposalmicroservice.business.webclient.analisefinanceira;
 
-import br.com.zupacademy.vinicius.proposalmicroservice.proposta.StatusProposta;
+import br.com.zupacademy.vinicius.proposalmicroservice.business.StatusProposta;
 
 public enum StatusSituacaoEnum {
     

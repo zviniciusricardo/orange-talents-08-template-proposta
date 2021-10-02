@@ -1,14 +1,14 @@
-package br.com.zupacademy.vinicius.proposalmicroservice.proposta.webclient.situacaofinanceira;
+package br.com.zupacademy.vinicius.proposalmicroservice.business.webclient.contas;
 
-import br.com.zupacademy.vinicius.proposalmicroservice.proposta.Proposta;
+import br.com.zupacademy.vinicius.proposalmicroservice.business.Proposta;
 
-public class AnaliseFinanceiraRequest {
+public class CartaoRequest {
     
     private String documento;
     private String nome;
     private String idProposta;
     
-    public AnaliseFinanceiraRequest(Proposta proposta) {
+    public CartaoRequest(Proposta proposta) {
         this.documento = proposta.getDocumento();
         this.nome = proposta.getNome();
         this.idProposta = proposta.getId().toString();

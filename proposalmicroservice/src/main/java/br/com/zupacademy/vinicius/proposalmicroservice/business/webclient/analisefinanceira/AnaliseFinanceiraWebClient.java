@@ -1,4 +1,4 @@
-package br.com.zupacademy.vinicius.proposalmicroservice.proposta.webclient.situacaofinanceira;
+package br.com.zupacademy.vinicius.proposalmicroservice.business.webclient.analisefinanceira;
 
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.PostMapping;
