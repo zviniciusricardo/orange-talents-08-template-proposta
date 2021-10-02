@@ -6,11 +6,11 @@
 - [x] 005.criacao_proposta
 - [x] 010.nao_pode_haver_proposta
 - [x] 015.consultando_dados_solicitante
-- [ ] 020.melhorando_visibilidade_healthcheck
-- [ ] 030.associar_cartao_proposta
-- [ ] 035.acompanhamento_proposta
-- [ ] 040.rodar_nossa_aplicacao
-- [ ] 045.criar_biometria
+- [x] 020.melhorando_visibilidade_healthcheck
+- [x] 030.associar_cartao_proposta
+- [x] 035.acompanhamento_proposta
+- [x] 040.rodar_nossa_aplicacao
+- [x] 045.criar_biometria
 - [ ] 050.login_via_senha
 - [ ] 055.bloqueio_cartao
 - [ ] 060.notificando_legado_cartao
@@ -218,17 +218,73 @@ Algumas convenções serão seguidas como:
 
 
 
+## 040.rodar_nossa_aplicacao
+
+	mvn spring-boot:run -Dspring-boot.run.profiles=dev,local
+
+_________________________________________________________________________
+
+mysql:
+image: mysql:5.7
+ports:
+- "3306:3306"
+environment:
+MYSQL_ROOT_PASSWORD: root
+MYSQL_DATABASE: propostas
+MYSQL_USER: root
+MYSQL_PASSWORD: root
+volumes:
+- "db-data:/var/lib/mysql"
+restart: on-failure
+_________________________________________________________________________
+
+proposta:
+build:
+dockerfile: Dockerfile
+context: .
+image: proposta
+ports:
+- "8080:8081"
+environment:
+MYSQL_HOST: mysql
+MYSQL_PASSWORD: root
+MYSQL_USER: root
+MYSQL_DATABASE: propostas
+MYSQL_PORT: 3306
+URL_API_ANALISE_FINANCEIRA: http://analise:9999/api/solicitacao
+URL_API_CARTOES: http://contas:8888/api/cartoes
+KEYCLOAK_ISSUER_URI: http://keycloak:8080/auth/realms/propostas
+KEYCLOAK_JWKS_URI: http://keycloak:8
+
+https://www.webtutorial.com.br/como-instalar-o-mysql-usando-o-docker/
+
+mysql:
+image: mysql:5.7
+ports:
+- "3306:3306"
+environment:
+MYSQL_ROOT_PASSWORD: root
+MYSQL_DATABASE: propostas
+MYSQL_USER: root
+MYSQL_PASSWORD: root
+volumes:
+- "db-data:/var/lib/mysql"
+restart: on-failure
 
 
+## 045.criar_biometria
 
+Crio um controller pra receber um POST. Uso um form pra receber a requisição com os dados requisitados pela regra de negócio.
+Uso a anotação @PathVariable pra receber o id do cartão via uri. A anotação RequestBody pra que a informação venha pelo corpo da
+requisição (segurança)
+Uso o UriComponentBuilder pra devolver um path de redirecionamento com o id do recurso criado após processar e salvar a request.
+Crio uma classe DTO usando o spring validator para validar os dados.
+Dentro da classe, crio um metodo de conversão de DTO para entidade.
+Crio uma entidade usando as anotações do Hibernate para o mapeamento objeto-relacional.
+Caso o identificador do cartão informado não exista, eu uso RequestException pra devolver um código http 404.
+Anoto o método de cadastro de biometria pra devolver 400 caso algum dado obrigatório não seja informado com @ResponseStatus.
 
-
-
-
-
-
-
-
-
+Caso tudo corra bem, uso um ResponseEntity pra devolver 200 ok com o resultado de cadastro realizado com sucesso e o redirecionamento da uri contendo
+o id do recurso criado.
 
 
