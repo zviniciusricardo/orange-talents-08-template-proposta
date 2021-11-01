@@ -1,7 +1,6 @@
 package br.com.zupacademy.vinicius.proposalmicroservice.handler;
 
 import br.com.zupacademy.vinicius.proposalmicroservice.business.webclient.contas.cartao_biometria.Biometria;
-import br.com.zupacademy.vinicius.proposalmicroservice.business.webclient.contas.cartao_biometria.BiometriaForm;
 import br.com.zupacademy.vinicius.proposalmicroservice.exception.RegraNegocioException;
 import br.com.zupacademy.vinicius.proposalmicroservice.exception.ReturnError;
 import org.springframework.beans.NotReadablePropertyException;

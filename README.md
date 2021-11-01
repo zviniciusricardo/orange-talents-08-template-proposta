@@ -23,6 +23,27 @@
 - [ ] 100.rodando_prometheus
 - [ ] 105.dados_dos_clientes
 
+________________
+
+### Overview
+
+<i>Projeto que contém todos os serviços necessário para o Bootcamp.</i>
+
+**Setup** Para fazer o setup do ambiente, execute o script:
+
+		docker-compose -f <FILE-NAME> up -d
+
+**Start** Para iniciar os serviços, execute o script:
+
+		docker-compose -f <FILE-NAME> start
+
+**Stop** Para parar os serviços, execute o script:
+
+		docker-compose -f <FILE-NAME> stop
+
+**Cleanup** Para desfazer o ambiente, execute o script:
+
+		docker-compose -f <FILE-NAME> down
 
 ### 005 - Criação Proposta (Caminho cognitivo)
 
@@ -99,66 +120,6 @@ advice.
 
 API externa de solicitação de análise de proposta
 
-		uri=/api/solicitacao
-		docker_image=zupacademy/analise-financeira
-		
-		 "NetworkMode": "nosso-cartao-compose_default",
-            "PortBindings": {
-                "9999/tcp": [
-                    {
-                        "HostIp": "",
-                        "HostPort": "9999"
-                    }
-                ]
-            },
-
-		...
-
-		"Env": [
-                "SERVER_PORT=9999",
-                "LOG_LEVEL=INFO",
-                "URL_SISTEMA_CARTAO=http://contas:8888/api/cartoes",
-                "JAEGER_ENDPOINT=http://jaeger:14268/api/traces",
-                "PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin",
-                "SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt",
-                "JAVA_VERSION=11.0.6",
-                "LANG=C.UTF-8"
-            ],
-            "Cmd": null,
-            "Image": "zupacademy/analise-financeira",
-            "Volumes": {},
-            "WorkingDir": "/",
-            "Entrypoint": [
-                "java",
-                "-cp",
-                "/app/resources:/app/classes:/app/libs/*",
-                "br.com.zup.academy.analise.financeira.AnaliseFinanceiraApplication"
-            ],
-
-		"Ports": {
-                "9999/tcp": [
-                    {
-                        "HostIp": "0.0.0.0",
-                        "HostPort": "9999"
-                    },
-                    {
-                        "HostIp": "::",
-                        "HostPort": "9999"
-                    }
-                ]
-            },
-
-		...
-
-		 "Networks": {
-                "nosso-cartao-compose_default": {
-                    "IPAMConfig": null,
-                    "Links": null,
-                    "Aliases": [
-                        "analise",
-                        "2674fe5a1dc8"
-                    ],
-
 ## What is the OpenAPI Specification?
 
 The OpenAPI Specification (OAS) defines a standard, programming language-agnostic interface description for HTTP APIs, 
@@ -169,19 +130,19 @@ to source code, additional documentation, or inspection of network traffic.
 
 [Feign Client](https://github.com/zup-academy/nosso-cartao-documentacao/blob/master/informacao_suporte/http-client-feign.md "WebClients com Feign")
 
-![feingExceptions.png](proposalmicroservice/src/main/resources/static/img.png)
+![feingExceptions.png](proposalmicroservice/src/main/resources/static/img/markdown/img.png)
 
 ## Um pouco sobre interfaces e Feign
 
-![Interfaces e Orientacao a Objetos](proposalmicroservice/src/main/resources/static/img_1.png)
+![Interfaces e Orientacao a Objetos](proposalmicroservice/src/main/resources/static/img/markdown/img_1.png)
 
-![Explorando o Polimorfismo e Herança](proposalmicroservice/src/main/resources/static/img_2.png)
+![Explorando o Polimorfismo e Herança](proposalmicroservice/src/main/resources/static/img/markdown/img_2.png)
 
-![Mais sobre polimorfismo e herança](proposalmicroservice/src/main/resources/static/img_3.png)
+![Mais sobre polimorfismo e herança](proposalmicroservice/src/main/resources/static/img/markdown/img_3.png)
 
-![Feign Usage](proposalmicroservice/src/main/resources/static/img_4.png)
+![Feign Usage](proposalmicroservice/src/main/resources/static/img/markdown/img_4.png)
 
-![Explaining](proposalmicroservice/src/main/resources/static/img_5.png)
+![Explaining](proposalmicroservice/src/main/resources/static/img/markdown/img_5.png)
 
 
 ## 020.melhorando_visibilidade_healthcheck
@@ -206,7 +167,8 @@ Caso esteja tudo de pé, retornamos 200 ok, caso não, retornaremos algum Server
 
 Caso seja pertinente, também posso instalar uma api de logs json based para auxiliar na exposição dos dados e inclusive no formato da apresentação como diferentes cores para diferentes grupos de logs, um prefixo pré-configurado para cada tipo de log ERR, INFO, SERV, TRACE, etc.
 
-Ao definir os endpoints que serão observados, a estrutura do projeto com segurança, autenticação e acessos estabelecidos, preciso usar uma estratégia para otimizar meus logs a serem uma parte integrante de mais outro fluxo dentro da minha aplicação.
+Ao definir os endpoints que serão observados, a estrutura do projeto com segurança, autenticação e acessos estabelecidos, 
+preciso usar uma estratégia para otimizar meus logs a serem uma parte integrante de mais outro fluxo dentro da minha aplicação.
 
 Algumas convenções serão seguidas como:
 
@@ -217,26 +179,9 @@ Algumas convenções serão seguidas como:
 * E, em caso de logs ou tráfego de dados sensíveis, ofuscar as informações.
 
 
-
 ## 040.rodar_nossa_aplicacao
 
 	mvn spring-boot:run -Dspring-boot.run.profiles=dev,local
-
-_________________________________________________________________________
-
-mysql:
-image: mysql:5.7
-ports:
-- "3306:3306"
-environment:
-MYSQL_ROOT_PASSWORD: root
-MYSQL_DATABASE: propostas
-MYSQL_USER: root
-MYSQL_PASSWORD: root
-volumes:
-- "db-data:/var/lib/mysql"
-restart: on-failure
-_________________________________________________________________________
 
 proposta:
 build:
@@ -288,3 +233,18 @@ Caso tudo corra bem, uso um ResponseEntity pra devolver 200 ok com o resultado d
 o id do recurso criado.
 
 
+## 050.login_via_senha
+
+No pom.xml eu instalo as dependências do starter OAuth2 Resource Server e depois o Security OAuth2 Jose JWS. O primeiro
+para habilitar a identificação e autorização em um servidor IAM usando o padrão OpenId e também o Json Web Signature que 
+é uma especificação padrão da indústria para trafegar dados no header usando um MAC (Media Acess Control header) para 
+segurança das informações compartilhadas numa REST API Stateless.
+Depois, acessamos o IAM (Keycloack para realizar as configurações de autenticação, criar usuários, grupos e roles, etc),
+além disse, definimos variáveis que faça a nossa aplicação de propostas apontar para o servidor do Keycloak. Precisamos criar
+os Realms e definir os escopos que cada cliente fará parte.
+Após, iremos configurar a segurança da nossa aplicação para garantir que a autenticação dos usuários sejam gerenciadas
+por uma aplicação terceira com o OAuth2 Resource Server Configurer e tokens JWT.
+Pra finalizar, declaramos as variáveis de ambiente que representem o contexto do realm correspondente aos usuários que 
+querem acessar a aplicação de propostas (ISSUER) e também o JWKS pra definição dos protocolos openId.
+
+MAC oauth2-jose - Criptography and creation of an MAC - (Media Access Control header)
